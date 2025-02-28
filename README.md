@@ -4,7 +4,7 @@ Script to transfer group object (including members, see [Caveats](#CAVEATS) )
 
 Maybe a starting point for other ideas / scripts or something else
 
-<a href="https://community.checkpoint.com/t5/API-CLI-Discussion/Exporting-large-group-of-IPs-into-a-file-from-mgmt-cli/m-p/242611#M8950" target="_blank">Check Point Checkmates!</a>
+It started here <a href="https://community.checkpoint.com/t5/API-CLI-Discussion/Exporting-large-group-of-IPs-into-a-file-from-mgmt-cli/m-p/242611#M8950" target="_blank">Check Point Checkmates</a>
 
 
 # Usage
