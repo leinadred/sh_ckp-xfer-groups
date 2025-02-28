@@ -1,0 +1,17 @@
+# Usage
+
+## "Import Mode"
+
+Gets given group from source server and creates them on destination server - including member objects (hosts or networks
+
+```shell
+bash ./xfer-groups.sh <source-server_IP-or-FQDN> <source-server_USER> <source-server_PASSWORD> <group-name> [-i <destination-server_IP-or-FQDN> <source-server_USER> <source-server_PASSWORDN> ]
+```
+
+## "Export Mode"
+
+Fetches given group and saves its member objects (in a csv file)
+
+```shell
+bash ./xfer-groups.sh <source-server_IP-or-FQDN> <source-server_USER> <source-server_PASSWORD> <group-name> 
+```
