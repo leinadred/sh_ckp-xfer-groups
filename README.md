@@ -40,4 +40,4 @@ exports member objects into csv files (separated through type (host/network)
 - currently only works with new to-create network objects/hosts. maybe will adjust that at a later moment.
 
 
-in case somethin more breaks - feel free to debug or reach out at <a href="https://community.checkpoint.com/t5/user/viewprofilepage/user-id/1663" target="_blank">to me</a>
+in case somethin more breaks - feel free to debug or reach out at <a href="https://community.checkpoint.com/t5/user/viewprofilepage/user-id/1663" target="_blank">Nueueuel</a>
