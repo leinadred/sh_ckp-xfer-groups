@@ -4,11 +4,17 @@
 SOURCE_SERVER_PORT="443"
 TARGET_SERVER_PORT="443"
 API_PATH="/web_api"
+SOURCE_MAAS_TENANT=""
+TARGET_MAAS_TENANT="e791f3ae-12a8-4252-8a86-e4d02594ddb8"
 
 # Function to get the SID
 get_sid() {
   local server="$1" user="$2" password="$3"
-  local payload="{\"user\":\"$user\", \"password\":\"$password\"}"
+  if [[  $user == "api-key" ]]; then
+    local payload="{\"api-key\":\"$password\"}"
+  else
+    local payload="{\"user\":\"$user\", \"password\":\"$password\"}"
+  fi
   curl --insecure "$server/login" -X POST -H "Content-Type: application/json" -d "$payload" | jq -r .sid
 }
 
@@ -59,14 +65,22 @@ fi
 SOURCE_SERVER_IP_OR_HOSTNAME="$1" SOURCE_USERNAME="$2" SOURCE_PASSWORD="$3" GROUPNAME="$4"
 
 if [[ "$5" == "-i" ]]; then # Import mode
-  if [[ $# -ne 7 ]]; then
+  if [[ $# -ne 8 ]]; then
     echo "Usage: $0 <source_server_ip_or_hostname> <source_user> <source_pass> <groupname> -i <target_server_ip_or_hostname> <target_user> <target_pass>"
     exit 1
   fi
   TARGET_SERVER_IP_OR_HOSTNAME="$6" TARGET_USERNAME="$7" TARGET_PASSWORD="$8"
+  if [ $SOURCE_MAAS_TENANT == "" ]; then
+    SOURCE_SERVER="https://${SOURCE_SERVER_IP_OR_HOSTNAME}:${SOURCE_SERVER_PORT}${API_PATH}"
+  else
+    SOURCE_SERVER="https://${SOURCE_SERVER_IP_OR_HOSTNAME}:${SOURCE_SERVER_PORT}/${SOURCE_MAAS_TENANT}${API_PATH}"
+  fi
 
-  SOURCE_SERVER="https://${SOURCE_SERVER_IP_OR_HOSTNAME}:${SOURCE_SERVER_PORT}${API_PATH}"
-  TARGET_SERVER="https://${TARGET_SERVER_IP_OR_HOSTNAME}:${TARGET_SERVER_PORT}${API_PATH}"
+  if [ $TARGET_MAAS_TENANT == "" ]; then
+    TARGET_SERVER="https://${TARGET_SERVER_IP_OR_HOSTNAME}:${TARGET_SERVER_PORT}${API_PATH}"
+  else
+    TARGET_SERVER="https://${TARGET_SERVER_IP_OR_HOSTNAME}:${TARGET_SERVER_PORT}/${TARGET_MAAS_TENANT}${API_PATH}"
+  fi
 
   source_sid=$(get_sid "$SOURCE_SERVER" "$SOURCE_USERNAME" "$SOURCE_PASSWORD")
   target_sid=$(get_sid "$TARGET_SERVER" "$TARGET_USERNAME" "$TARGET_PASSWORD")
